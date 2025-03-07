@@ -1,5 +1,6 @@
 package com.github.wemilli.study_apir.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -9,10 +10,14 @@ import com.github.wemilli.study_apir.model.Product;
 @Service 
 public class ProductService {
 
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
+
+    private long sequence =1L;
 
     public Product createProduct(Product product) {
-        return null;
+        product.setId(sequence++);
+        products.add(product);
+        return product;
     }
 
     public Product getProductById(Long id) {
@@ -20,7 +25,8 @@ public class ProductService {
     }
 
     public Product updateProduct(Long id, Product product) {
-        return null;
+
+        return product;
     }
 
     public void deleteProduct(Long id) {
