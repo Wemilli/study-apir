@@ -2,6 +2,7 @@ package com.github.wemilli.study_apir.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,12 @@ public class ProductService {
         return null;
     }
 
-    public Product updateProduct(Long id, Product product) {
+    public Optional<Product> updateProduct(Long id, Product product) {
 
-        return product;
+        return products.stream().filter(e -> e.getId().equals(id)).findFirst().map(p -> {
+            p.setNome(product.getNome());
+            return p;
+        });
     }
 
     public void deleteProduct(Long id) {
