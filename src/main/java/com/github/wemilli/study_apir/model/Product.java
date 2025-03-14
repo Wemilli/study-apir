@@ -1,8 +1,11 @@
 package com.github.wemilli.study_apir.model;
 
+import java.math.BigDecimal;
+
 public class Product {
     private Long id;
     private String nome;
+    private BigDecimal valor;
 
     public Long getId() {
         return id;
@@ -20,4 +23,11 @@ public class Product {
         this.nome = nome;
     }
 
+    public BigDecimal getValor(){
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor){
+        this.valor = valor;
+    }
 }
