@@ -5,7 +5,9 @@ API Java para estudo de Spring Boot.
 
 ## Instalação
 - Limpar e criar pasta */target*
-```mvn clean package```
+    ```
+    mvn clean package
+    ```
 
 * Configuração do Swagger
     - https://springdoc.org/properties
@@ -20,7 +22,9 @@ API Java para estudo de Spring Boot.
 ### Executar a API
 
 - Executando o  **Maven**
-```` mvn spring-boot:run````
+    ```
+    mvn spring-boot:run
+    ```
 
 ### Documentação da API (Swagger)
 - http://localhost:8080/swagger-ui
