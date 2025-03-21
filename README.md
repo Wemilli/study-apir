@@ -29,6 +29,12 @@ API Java para estudo de Spring Boot.
 ### Documentação da API (Swagger)
 - http://localhost:8080/swagger-ui
 
-## Referências
+### Docker
+    ```
+    docker pull ubuntu
+    docker images
+    docker pull debian
+    docker images
+    ```
 
-- https://springdoc.org/
+## Referências
