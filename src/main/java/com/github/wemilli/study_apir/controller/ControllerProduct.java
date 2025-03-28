@@ -2,6 +2,8 @@ package com.github.wemilli.study_apir.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.wemilli.study_apir.dto.ProductRequestCreate;
 import com.github.wemilli.study_apir.dto.ProductRequestUpdate;
+import com.github.wemilli.study_apir.dto.ProductResponse;
 import com.github.wemilli.study_apir.model.Product;
 import com.github.wemilli.study_apir.service.ProductService;
 
@@ -27,31 +30,35 @@ public class ControllerProduct {
     private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody ProductRequestCreate dto) {
-        Product productCreated = productService.createProduct(dto);
-        return ResponseEntity.status(201).body(productCreated);
+    public ResponseEntity<ProductResponse> create(
+                                @RequestBody ProductRequestCreate dto) {
+        return ResponseEntity.status(201).body(new ProductResponse().toDto(productService.createProduct(dto)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(
-         @PathVariable Long id) {
+    public ResponseEntity<ProductResponse> 
+    findById(@PathVariable Long id) {
         return productService.getProductById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.noContent().build()); 
-    }
+        .map(p -> new ProductResponse().toDto(p))
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+            }
 
     @GetMapping
-    public ResponseEntity<List <Product>> findAll() {
-        productService.getProductById(null);
-        return ResponseEntity.ok(productService.getAll());
+    public ResponseEntity<List <ProductResponse>> findAll() {
+        List<ProductResponse> response = 
+            productService.getAll().stream()
+            .map(p -> new ProductResponse().toDto(p))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(
-                @PathVariable Long id, 
-                @RequestBody ProductRequestUpdate dto) {
+    public ResponseEntity<ProductResponse> 
+            update(@PathVariable Long id, @RequestBody ProductRequestUpdate dto) {
 
         return productService.updateProduct(id, dto)
+                    .map(p -> new ProductResponse().toDto(p) )
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
 
