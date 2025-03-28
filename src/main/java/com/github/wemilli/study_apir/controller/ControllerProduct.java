@@ -35,22 +35,14 @@ public class ControllerProduct {
         return ResponseEntity.status(201).body(new ProductResponse().toDto(productService.createProduct(dto)));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> 
-    findById(@PathVariable Long id) {
-        return productService.getProductById(id)
-        .map(p -> new ProductResponse().toDto(p))
-        .map(ResponseEntity::ok)
-        .orElse(ResponseEntity.notFound().build());
-            }
-
-    @GetMapping
-    public ResponseEntity<List <ProductResponse>> findAll() {
-        List<ProductResponse> response = 
-            productService.getAll().stream()
-            .map(p -> new ProductResponse().toDto(p))
-            .collect(Collectors.toList());
-        return ResponseEntity.ok(response);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete( @PathVariable Long id) {
+        boolean result = productService.deleteProduct(id);
+        if (result) {
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.noContent().build();
+        }
     }
 
     @PutMapping("/{id}")
@@ -61,23 +53,24 @@ public class ControllerProduct {
                     .map(p -> new ProductResponse().toDto(p) )
                     .map(ResponseEntity::ok)
                     .orElse(ResponseEntity.notFound().build());
-
-        // Optional<Product> productUpdate =
-        //     productService.updateProduct(id, product);
-        //  if(productUpdate.isPresent()){
-        //     return ResponseEntity.ok(productUpdate.get());
-        //  }
-        // return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete( @PathVariable Long id) {
-        boolean result = productService.deleteProduct(id);
-        if (result) {
-            return ResponseEntity.noContent().build();
-        }else{
-            return ResponseEntity.noContent().build();
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponse> 
+            findById(@PathVariable Long id) {
+        return productService.getProductById(id)
+                    .map(p -> new ProductResponse().toDto(p))
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+            }
+
+    @GetMapping
+    public ResponseEntity<List <ProductResponse>> findAll() {
+        List<ProductResponse> response = 
+            productService.getAll().stream()
+            .map(p -> new ProductResponse().toDto(p))
+            .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -2,6 +2,9 @@ package com.github.wemilli.study_apir.model;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Product {
     private Long id;
     private String nome;
