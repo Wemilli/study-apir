@@ -2,6 +2,8 @@
 
 API Java para estudo de Spring Boot.
 
+## MER
+![](assets/img/mer.png)
 
 ## Instalação
 - Limpar e criar pasta */target*
@@ -9,6 +11,7 @@ API Java para estudo de Spring Boot.
     mvn clean package
     ```
 
+    
 * Configuração do Swagger
     - https://springdoc.org/properties
   
