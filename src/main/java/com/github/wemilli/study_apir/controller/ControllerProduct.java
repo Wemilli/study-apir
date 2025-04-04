@@ -1,8 +1,6 @@
 package com.github.wemilli.study_apir.controller;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.wemilli.study_apir.dto.ProductRequestCreate;
 import com.github.wemilli.study_apir.dto.ProductRequestUpdate;
 import com.github.wemilli.study_apir.dto.ProductResponse;
-import com.github.wemilli.study_apir.model.Product;
 import com.github.wemilli.study_apir.service.ProductService;
 
 @RestController
@@ -31,45 +28,42 @@ public class ControllerProduct {
 
     @PostMapping
     public ResponseEntity<ProductResponse> create(
-                                @RequestBody ProductRequestCreate dto) {
+            @RequestBody ProductRequestCreate dto) {
         return ResponseEntity.status(201).body(new ProductResponse().toDto(productService.createProduct(dto)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete( @PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         boolean result = productService.deleteProduct(id);
         if (result) {
             return ResponseEntity.noContent().build();
-        }else{
+        } else {
             return ResponseEntity.noContent().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> 
-            update(@PathVariable Long id, @RequestBody ProductRequestUpdate dto) {
+    public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody ProductRequestUpdate dto) {
 
         return productService.updateProduct(id, dto)
-                    .map(p -> new ProductResponse().toDto(p) )
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
+                .map(p -> new ProductResponse().toDto(p))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> 
-            findById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponse> findById(@PathVariable Long id) {
         return productService.getProductById(id)
-                    .map(p -> new ProductResponse().toDto(p))
-                    .map(ResponseEntity::ok)
-                    .orElse(ResponseEntity.notFound().build());
-            }
+                .map(p -> new ProductResponse().toDto(p))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @GetMapping
-    public ResponseEntity<List <ProductResponse>> findAll() {
-        List<ProductResponse> response = 
-            productService.getAll().stream()
-            .map(p -> new ProductResponse().toDto(p))
-            .collect(Collectors.toList());
+    public ResponseEntity<List<ProductResponse>> findAll() {
+        List<ProductResponse> response = productService.getAll().stream()
+                .map(p -> new ProductResponse().toDto(p))
+                .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 
