@@ -1,24 +1,17 @@
 package com.github.wemilli.study_apir.dto;
 
-import java.math.BigDecimal;
 
-import com.github.wemilli.study_apir.model.Pedido;
-import com.github.wemilli.study_apir.model.Produto;
+import java.util.List;
 
 public class PedidoRequestCreate {
-    private String status;
 
-    public Pedido toModel() {
-        Pedido pedido = new Pedido();
-        pedido.setStatus(this.status);
-        return pedido;
+    private List<ItemRequestCreate> items;
+
+    public List<ItemRequestCreate> getItems() {
+        return items;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setItems(List<ItemRequestCreate> items) {
+        this.items = items;
     }
 }

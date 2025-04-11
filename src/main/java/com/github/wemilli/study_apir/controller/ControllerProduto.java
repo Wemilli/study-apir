@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.wemilli.study_apir.dto.PedidoResponse;
 import com.github.wemilli.study_apir.dto.ProdutoRequestCreate;
 import com.github.wemilli.study_apir.dto.ProdutoRequestUpdate;
 import com.github.wemilli.study_apir.dto.ProdutoResponse;
-import com.github.wemilli.study_apir.service.PedidoService;
 import com.github.wemilli.study_apir.service.ProdutoService;
 
 @RestController
