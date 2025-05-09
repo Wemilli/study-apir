@@ -1,6 +1,7 @@
 package com.github.wemilli.study_apir.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.github.wemilli.study_apir.model.Pedido;
 
@@ -10,7 +11,15 @@ public class PedidoResponse {
     private List<ItemResponse> items;
 
     public PedidoResponse toDto (Pedido pedido) {
-        this.id = pedido.getId();
+        this.setId(pedido.getId());
+        this.setStatus(pedido.getStatus());
+
+        List<ItemResponse> items = pedido.getItems()
+                .stream()
+                .map(item -> new ItemResponse().toDto(item))
+                .collect(Collectors.toList());
+
+        this.setItems(items);
         return this;
     }
 

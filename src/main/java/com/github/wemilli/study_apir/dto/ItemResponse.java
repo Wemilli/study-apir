@@ -2,12 +2,23 @@ package com.github.wemilli.study_apir.dto;
 
 import java.math.BigDecimal;
 
+import com.github.wemilli.study_apir.model.Item;
+
 public class ItemResponse {
 
     private Long id;
     private String produto_nome;
     private BigDecimal valor;
     private BigDecimal quantidade;
+
+    public ItemResponse toDto (Item item){
+        this.setId(item.getId());
+        this.setValor(item.getValor());
+        this.setQuantidade(item.getQuantidade());
+        this.setProduto_nome(item.getProduto().getNome());
+        return this;
+    }
+
     public Long getId() {
         return id;
     }

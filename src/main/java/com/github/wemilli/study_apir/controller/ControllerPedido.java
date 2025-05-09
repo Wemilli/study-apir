@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.wemilli.study_apir.dto.PedidoRequestCreate;
 import com.github.wemilli.study_apir.dto.PedidoRequestUpdate;
 import com.github.wemilli.study_apir.dto.PedidoResponse;
+import com.github.wemilli.study_apir.model.Pedido;
 import com.github.wemilli.study_apir.service.PedidoService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -30,13 +31,11 @@ public class ControllerPedido {
     @PostMapping
     public ResponseEntity<PedidoResponse> create(
             @RequestBody PedidoRequestCreate dto) {
-                return ResponseEntity.noContent().build();
-        // return ResponseEntity.status(201).body(
-        //     new PedidoResponse().toDto(
-        //         pedidoService.createPedido(dto)
-        //         )
-        // );
 
+
+                return ResponseEntity
+                .status(201)
+                .body(new PedidoResponse().toDto(pedidoService.create(dto)));
     }
 
     @GetMapping("{id}")
